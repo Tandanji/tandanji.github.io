@@ -47,7 +47,7 @@
         <div class="bottom">
           <input id="email" type="email" placeholder="Email" />
           <input id="password" type="password" placeholder="Password" />
-          <button type="button" class="btn">로그인</button>
+          <button type="button" class="btn" onclick="nextPage()">로그인</button>
           <p style="text-align: center">
             계정이 없으신가요? <a href="#">회원가입</a>
           </p>
@@ -55,6 +55,11 @@
       </div>
     </div>
   </body>
+  <script>
+    function nextPage() {
+      location.href = "/foodguide.html";
+    }
+  </script>
   <style>
     h1 {
       font-weight: bold;
@@ -101,4 +106,5 @@
       border-radius: 5px;
     }
   </style>
+  <
 </html>

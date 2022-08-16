@@ -41,20 +41,22 @@
     </div>
     <footer>
       <div class="bottomNav">
-        <div class="items">
-          <p style="margin: 0"><img src="./resource/home.svg" /><br />Home</p>
-        </div>
-        <div class="items">
+        <div class="items" onclick="goHome()">
           <p style="margin: 0">
-            <img src="./resource/bookmark-fill.svg" /><br />Diet
+            <img src="./resource/home-fill.svg" /><br />Home
           </p>
         </div>
-        <div class="items">
+        <div class="items" onclick="goBookMark()">
+          <p style="margin: 0">
+            <img src="./resource/bookmark.svg" /><br />Diet
+          </p>
+        </div>
+        <div class="items" onclick="goCamera()">
           <p style="margin: 0">
             <img src="./resource/camera.svg" /><br />Upload
           </p>
         </div>
-        <div class="items">
+        <div class="items" onclick="goPerson()">
           <p style="margin: 0">
             <img src="./resource/person.svg" /><br />Profile
           </p>
@@ -62,6 +64,18 @@
       </div>
     </footer>
   </body>
+  <script>
+    function goHome() {
+      location.href = "/foodlist.html";
+    }
+    function goBookMark() {
+      location.href = "/day-chart.html";
+    }
+    function goCamera() {
+      location.href = "/foodguide.html";
+    }
+    function goPerson() {}
+  </script>
   <style>
     p {
       margin: 0;

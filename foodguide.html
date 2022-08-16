@@ -52,7 +52,64 @@
       </div>
     </div>
   </body>
+  <footer>
+    <div class="bottomNav">
+      <div class="items" onclick="goHome()">
+        <p style="margin: 0"><img src="./resource/home.svg" /><br />Home</p>
+      </div>
+      <div class="items" onclick="goBookMark()">
+        <p style="margin: 0"><img src="./resource/bookmark.svg" /><br />Diet</p>
+      </div>
+      <div class="items" onclick="goCamera()">
+        <p style="margin: 0">
+          <img src="./resource/camera-fill.svg" /><br />Upload
+        </p>
+      </div>
+      <div class="items" onclick="goPerson()">
+        <p style="margin: 0">
+          <img src="./resource/person.svg" /><br />Profile
+        </p>
+      </div>
+    </div>
+  </footer>
+  <script>
+    function goHome() {
+      location.href = "/foodlist.html";
+    }
+    function goBookMark() {
+      location.href = "/day-chart.html";
+    }
+    function goCamera() {
+      location.href = "/foodguide.html";
+    }
+    function goPerson() {}
+  </script>
   <style>
+    p {
+      text-align: center;
+      font-size: 12px;
+    }
+    .items img {
+      width: 30%;
+      text-align: center;
+    }
+    .items {
+      width: 25%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .bottomNav {
+      border-radius: 10px;
+      height: 9%;
+      background-color: white;
+      overflow: hidden;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
     h4 {
       font-weight: bold;
     }
@@ -61,7 +118,7 @@
       padding-bottom: 5%;
     }
     .container-head {
-      height: 70%;
+      height: 60%;
       display: flex;
       justify-content: center;
       align-items: center;
