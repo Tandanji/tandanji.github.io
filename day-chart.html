@@ -39,20 +39,40 @@
   </head>
   <body>
     <div class="container">
-      <div class="chartBox">
-        <canvas id="amoutChart" class="chart"></canvas>
-        <canvas id="sodiumChart" class="chart"></canvas>
-        <canvas id="fatChart" class="chart"></canvas>
-      </div>
+      <h2 id="title">2022년 7월 31일 섭취량</h2>
     </div>
   </body>
   <style>
-    .chartBox {
+    #legend {
+      position: absolute;
+    }
+    #title {
+      font-weight: bold;
+      margin: 3%;
+    }
+    p {
+      text-align: center;
+      font-size: 12px;
+    }
+    .textBox {
+      width: 20%;
       display: flex;
-      justify-content: space-around;
+      flex-direction: column;
+    }
+    .chartBox {
+      padding-top: 5%;
+      margin-top: 5%;
+      border-radius: 5%;
+      background-color: white;
+      width: 100%;
+      display: flex;
+      justify-content: space-evenly;
     }
     .chart {
-      width: 30%;
+      width: 20vw;
+      margin: 0;
+      padding: 0;
+      margin-top: 1vh;
     }
     h4 {
       font-weight: bold;
@@ -60,6 +80,7 @@
     body {
       padding-top: 5%;
       padding-bottom: 5%;
+      background: #f8f7fd;
     }
     .container-head {
       height: 70%;
@@ -70,6 +91,7 @@
     }
     .container {
       height: 100%;
+      width: 100%;
     }
     .flexbox {
       justify-content: center;
@@ -91,82 +113,119 @@
     }
   </style>
   <script type="text/javascript">
-    var context = document.getElementById("amoutChart").getContext("2d");
-    var dataset = {
-      label: "육류 판매량",
-      backgroundColor: ["#B2B2B2", "#02bc77"], //라벨별 컬러설정
-      data: [50, 45],
-    };
-
-    var labels = ["돼지고기", "양고기"];
-
-    var datasets = { datasets: [dataset], labels: labels };
-    https: var config = {
-      type: "pie",
-      data: datasets, //데이터 셋
-      options: {
-        responsive: true,
-        maintainAspectRatio: false, //true 하게 되면 캔버스 width,height에 따라 리사이징된다.
-        legend: {
-          display: false,
-        },
-        plugins: {},
-      },
-    };
-    var canvas = document.getElementById("amoutChart");
-    var pieChart = new Chart(canvas, config);
-  </script>
-
-  <script type="text/javascript">
-    var context = document.getElementById("sodiumChart").getContext("2d");
-    var dataset = {
-      label: "육류 판매량",
-      backgroundColor: ["#B2B2B2", "#02bc77"], //라벨별 컬러설정
-      data: [50, 45],
-    };
-
-    var labels = ["돼지고기", "양고기"];
-
-    var datasets = { datasets: [dataset], labels: labels };
-    https: var config = {
-      type: "pie",
-      data: datasets, //데이터 셋
-      options: {
-        responsive: true,
-        maintainAspectRatio: true, //true 하게 되면 캔버스 width,height에 따라 리사이징된다.
-        legend: {
-          display: false,
-        },
-        plugins: {},
-      },
-    };
-    var canvas = document.getElementById("sodiumChart");
-    var pieChart = new Chart(canvas, config);
-  </script>
-  <script type="text/javascript">
-    var context = document.getElementById("fatChart").getContext("2d");
-    var dataset = {
-      label: "육류 판매량",
-      backgroundColor: ["#B2B2B2", "#02bc77"], //라벨별 컬러설정
-      data: [50, 45],
-    };
-
-    var labels = ["돼지고기", "양고기"];
-
-    var datasets = { datasets: [dataset], labels: labels };
-    https: var config = {
-      type: "pie",
-      data: datasets, //데이터 셋
-      options: {
-        responsive: true,
-        maintainAspectRatio: false, //true 하게 되면 캔버스 width,height에 따라 리사이징된다.
-        legend: {
-          display: false,
-        },
-        plugins: {},
-      },
-    };
-    var canvas = document.getElementById("fatChart");
-    var pieChart = new Chart(canvas, config);
+    /*const colorArray = {
+      열량: "#1ABC9C",
+      나트륨: "#2ECC71",
+      지방: "3498DB",
+      칼슘: "9B59B6",
+      탄수화물: "F1C40F",
+      당류: "9747FF",
+      단백질: "E67E22",
+      인: "E74C3C",
+      칼륨: "34495E",
+      철: "7F8C8D",
+      마그네슘: "27AE60",
+      아연: "8E44AD",
+      콜레스트롤: "16A085",
+      트랜스지방: "16A085",
+    };*/
+    const textArray = [
+      "열량",
+      "나트륨",
+      "지방",
+      "칼슘",
+      "탄수화물",
+      "당류",
+      "단백질",
+      "인",
+      "칼륨",
+      "철",
+      "마그네슘",
+      "아연",
+      "콜레스트롤",
+      "트랜스지방",
+    ];
+    const colorArray = [
+      "#1ABC9C",
+      "#2ECC71",
+      "#3498DB",
+      "#9B59B6",
+      "#F1C40F",
+      "#9747FF",
+      "#E67E22",
+      "#E74C3C",
+      "#34495E",
+      "#7F8C8D",
+      "#27AE60",
+      "#8E44AD",
+      "#16A085",
+      "#16A085",
+    ];
+    const valueArray = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30];
+    const unitArray = [
+      "Kcal",
+      "Kcal",
+      "Kcal",
+      "Kcal",
+      "Kcal",
+      "Kcal",
+      "Kcal",
+      "Kcal",
+      "Kcal",
+      "Kcal",
+      "Kcal",
+      "Kcal",
+      "Kcal",
+      "Kcal",
+    ];
+    for (let line = 0; line < parseInt(textArray.length / 3) + 1; line++) {
+      var elementDiv = document.createElement("div");
+      elementDiv.setAttribute("class", "chartBox");
+      for (let index = 0; index < 3; index++) {
+        const count = line * 3 + index;
+        var elementTextBox = document.createElement("textBox");
+        elementTextBox.setAttribute("class", "textBox");
+        var elementH6 = document.createElement("h6");
+        elementH6.setAttribute("id", "legend");
+        elementH6.appendChild(document.createTextNode(valueArray[count] + "%"));
+        var elementCanvas = document.createElement("canvas");
+        elementCanvas.setAttribute("id", count);
+        elementCanvas.setAttribute("class", "chart");
+        var elementP = document.createElement("p");
+        elementP.appendChild(
+          document.createTextNode(
+            `${textArray[count]} ${valueArray[count]}${unitArray[count]}`
+          )
+        );
+        elementTextBox.appendChild(elementH6);
+        elementTextBox.appendChild(elementCanvas);
+        elementTextBox.appendChild(elementP);
+        elementDiv.appendChild(elementTextBox);
+        console.log(colorArray[count]);
+        var dataset = {
+          backgroundColor: ["#B2B2B2", colorArray[count]], //라벨별 컬러설정
+          data: [valueArray[count], 100 - valueArray[count]],
+        };
+        console.log(dataset);
+        var datasets = { datasets: [dataset] };
+        https: var config = {
+          type: "pie",
+          data: datasets,
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            tooltips: { enabled: false },
+            hover: { mode: null },
+            legend: {
+              display: false,
+            },
+            plugins: {},
+          },
+        };
+        var pieChart = new Chart(elementCanvas, config);
+      }
+      var container = document.querySelector(".container");
+      container.appendChild(elementDiv);
+    }
   </script>
 </html>
