@@ -40,9 +40,82 @@
   <body>
     <div class="container">
       <h2 id="title">2022년 7월 31일 섭취량</h2>
+      <div class="flexBox"></div>
+
+    </div>
+    <div class="container" id="detail">
+      <div class="box">
+        </div>
+      </div>
     </div>
   </body>
+  <footer>
+    <div class="bottomNav">
+      <div class="items">
+        <p style="margin: 0"><img src="./resource/home.svg" /><br />Home</p>
+      </div>
+      <div class="items">
+        <p style="margin: 0"><img src="./resource/bookmark-fill.svg" /><br />Diet</p>
+      </div>
+      <div class="items">
+        <p style="margin: 0"><img src="./resource/camera.svg" /><br />Upload</p>
+      </div>
+      <div class="items">
+        <p style="margin: 0"><img src="./resource/person.svg" /><br />Profile</p>
+      </div>
+    </div>
+  </footer>
   <style>
+    .active{
+      background-color: rebeccapurple;
+    }
+    .rightTxt {
+      font-weight: bold;
+      font-size: medium;
+    }
+    .leftTxt {
+      font-size: medium;
+    }
+    #detail {
+      padding-bottom: 25%;
+    }
+    .line {
+      display: flex;
+      justify-content: space-between;
+      padding-left: 7%;
+      padding-right: 7%;
+    }
+    .box {
+      padding-top: 5%;
+      margin-top: 5%;
+      border-radius: 10px;
+      background-color: white;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+    }
+    .items img {
+      width: 30%;
+      text-align: center;
+    }
+    .items {
+      width: 25%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .bottomNav {
+      border-radius: 10px;
+      height: 9%;
+      background-color: white;
+      overflow: hidden;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
     #legend {
       position: absolute;
     }
@@ -62,7 +135,7 @@
     .chartBox {
       padding-top: 5%;
       margin-top: 5%;
-      border-radius: 5%;
+      border-radius: 10px;
       background-color: white;
       width: 100%;
       display: flex;
@@ -79,7 +152,7 @@
     }
     body {
       padding-top: 5%;
-      padding-bottom: 5%;
+      padding-bottom: 10%;
       background: #f8f7fd;
     }
     .container-head {
@@ -90,7 +163,6 @@
       flex-direction: column;
     }
     .container {
-      height: 100%;
       width: 100%;
     }
     .flexbox {
@@ -113,22 +185,6 @@
     }
   </style>
   <script type="text/javascript">
-    /*const colorArray = {
-      열량: "#1ABC9C",
-      나트륨: "#2ECC71",
-      지방: "3498DB",
-      칼슘: "9B59B6",
-      탄수화물: "F1C40F",
-      당류: "9747FF",
-      단백질: "E67E22",
-      인: "E74C3C",
-      칼륨: "34495E",
-      철: "7F8C8D",
-      마그네슘: "27AE60",
-      아연: "8E44AD",
-      콜레스트롤: "16A085",
-      트랜스지방: "16A085",
-    };*/
     const textArray = [
       "열량",
       "나트륨",
@@ -161,53 +217,55 @@
       "#16A085",
       "#16A085",
     ];
-    const valueArray = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30];
+    const valueArray = [42, 93, 55, 15, 54, 0, 45, 75, 25, 48, 4, 43, 103, 0];
+    const detailArray = [1056, 1869, 22, 104, 176, 0, 31, 523, 878, 5, 15, 5, 309, 0];
     const unitArray = [
-      "Kcal",
-      "Kcal",
-      "Kcal",
-      "Kcal",
-      "Kcal",
-      "Kcal",
-      "Kcal",
-      "Kcal",
-      "Kcal",
-      "Kcal",
-      "Kcal",
-      "Kcal",
-      "Kcal",
-      "Kcal",
+      "kcal",
+      "mg",
+      "g",
+      "mg",
+      "kcal",
+      "g",
+      "g",
+      "mg",
+      "g",
+      "mg",
+      "mg",
+      "mg",
+      "mg",
+      "g",
     ];
     for (let line = 0; line < parseInt(textArray.length / 3) + 1; line++) {
-      var elementDiv = document.createElement("div");
+      const elementDiv = document.createElement("div");
       elementDiv.setAttribute("class", "chartBox");
       for (let index = 0; index < 3; index++) {
         const count = line * 3 + index;
-        var elementTextBox = document.createElement("textBox");
+        if(count == textArray.length){
+          break;
+        }
+        const elementTextBox = document.createElement("textBox");
         elementTextBox.setAttribute("class", "textBox");
-        var elementH6 = document.createElement("h6");
+        const elementH6 = document.createElement("h6");
         elementH6.setAttribute("id", "legend");
         elementH6.appendChild(document.createTextNode(valueArray[count] + "%"));
-        var elementCanvas = document.createElement("canvas");
+        const elementCanvas = document.createElement("canvas");
         elementCanvas.setAttribute("id", count);
         elementCanvas.setAttribute("class", "chart");
-        var elementP = document.createElement("p");
+        const elementP = document.createElement("p");
         elementP.appendChild(
           document.createTextNode(
-            `${textArray[count]} ${valueArray[count]}${unitArray[count]}`
+            `${textArray[count]} ${detailArray[count]}${unitArray[count]}`
           )
         );
         elementTextBox.appendChild(elementH6);
         elementTextBox.appendChild(elementCanvas);
         elementTextBox.appendChild(elementP);
         elementDiv.appendChild(elementTextBox);
-        console.log(colorArray[count]);
-        var dataset = {
-          backgroundColor: ["#B2B2B2", colorArray[count]], //라벨별 컬러설정
+        const dataset = {
+          backgroundColor: [colorArray[count],"#B2B2B2"], //라벨별 컬러설정
           data: [valueArray[count], 100 - valueArray[count]],
         };
-        console.log(dataset);
-        var datasets = { datasets: [dataset] };
+        const datasets = { datasets: [dataset] };
         https: var config = {
           type: "pie",
           data: datasets,
@@ -222,10 +280,29 @@
             plugins: {},
           },
         };
-        var pieChart = new Chart(elementCanvas, config);
+        const pieChart = new Chart(elementCanvas, config);
       }
-      var container = document.querySelector(".container");
+      const container = document.querySelector(".container");
       container.appendChild(elementDiv);
     }
+    for (let index = 0; index < textArray.length; index++) {
+        const elementBox = document.querySelector(".box");
+        const classLine = document.createElement("div");
+        classLine.setAttribute("class", "line");
+        const classRightTxt = document.createElement("p");
+        const classRightTxtData = document.createTextNode(textArray[index]);
+        classRightTxt.setAttribute("class", "rightTxt");
+        classRightTxt.appendChild(classRightTxtData);
+
+        const leftTxt = document.createElement("p");
+        leftTxt.setAttribute("class", "leftTxt");
+        const leftTxtData = document.createTextNode(
+          `${valueArray[index]} % ( ${detailArray[index]} ${unitArray[index]} )`
+        );
+        leftTxt.appendChild(leftTxtData);
+        classLine.appendChild(classRightTxt);
+        classLine.appendChild(leftTxt);
+        elementBox.appendChild(classLine);
+      }
   </script>
 </html>
